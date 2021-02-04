@@ -8,8 +8,13 @@ app.whenReady().then(() => {
     width: 1200,
     height: 830,
 
+    minWidth: 390,
+    minHeight: 600,
+
     frame: false,
     transparent: true,
+
+    resizable: true,
 
     webPreferences: {
       nodeIntegration: true

@@ -6,6 +6,8 @@ const path = require('path');
 let events = require('onceupon.js')();
 
 module.exports = window => {
+  let socket;
+
   let options = {
     faders: [],
     ip: ''
@@ -19,14 +21,13 @@ module.exports = window => {
     }
   }
 
-  let socket;
-
   events.on('init', () => {
     socket = io(options.ip);
 
     socket.on('connect', () => {
       events.fire('ready');
-      window?.webContents.send('main-connected');
+      console.log('CONNECTED')
+      window?.webContents.send('main-connect');
     });
   });
 
@@ -62,6 +63,10 @@ module.exports = window => {
       events.fire('init');
       write();
     }
+  });
+
+  window.on('resize', () => {
+    window.webContents.send('main-resize');
   });
 
   ipcMain.on('client-change', (event, data) => {

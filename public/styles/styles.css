@@ -47,24 +47,28 @@ html body .button {
   text-transform: uppercase;
   padding: 12.5px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.3s, box-shadow 0.3s;
   margin: 5px;
   border-radius: 5px;
   font-size: 0.8em;
   font-weight: 600;
   text-align: center;
+  box-shadow: -5px 5px 15px 0px rgba(100,131,255,0.25);
 }
 html body .button:hover {
   background: #9aafff;
+  box-shadow: -5px 5px 15px 0px rgba(100,131,255,0.15);
 }
 html body .frame {
   width: 100%;
   height: 100%;
-  display: grid;
+  display: flex;
   border-radius: 5px;
   background: #fff;
   color: #dfdfdf;
   position: absolute;
+  flex-direction: column;
+  justify-content: center;
 }
 html body .frame .modal {
   position: fixed;
@@ -91,9 +95,13 @@ html body .frame .modal .modal-container {
   display: grid;
   grid-template-rows: fit-content(100%) fit-content(100%) fit-content(100%);
   text-align: center;
-  justify-content: right;
+  justify-content: center;
   position: relative;
   pointer-events: all;
+  min-width: 330px;
+}
+html body .frame .modal .modal-container input {
+  min-width: 315px;
 }
 html body .frame .modal .modal-container i.fas.fa-times {
   position: absolute;
@@ -123,8 +131,9 @@ html body .frame .curtain.visible {
   pointer-events: all;
 }
 html body .frame .container {
-  padding: 60px 60px 30px 60px;
+  padding: 70px 60px 30px 60px;
   display: flex;
+  flex: 1;
   align-items: center;
   justify-content: center;
   margin: calc(40px + 1em) 0 0 0;
@@ -137,18 +146,22 @@ html body .frame .container .faders .fader {
   height: 100%;
   display: grid;
   grid-template-rows: auto fit-content(100%);
-  margin: 0 30px;
-  width: 115px;
+  margin: 0;
+  width: 0;
   transform: scale(0);
-  transition: transform 0.5s;
+  transition: transform 0.5s, width 0.5s, margin 0.5s;
+  pointer-events: none;
 }
 html body .frame .container .faders .fader.visible {
   transform: scale(1);
+  width: 115px;
+  margin: 0 30px;
+  pointer-events: all;
 }
 html body .frame .container .faders .fader .fader-meta {
   color: #6483ff;
   text-align: center;
-  margin: 30px;
+  margin: 30px 0;
 }
 html body .frame .container .faders .fader .fader-container {
   background: #f1f1f1;
@@ -156,12 +169,16 @@ html body .frame .container .faders .fader .fader-container {
   position: relative;
   padding: 30px 0;
   text-align: center;
-  width: 115px;
+  width: 0;
+  transition: 0.5s;
 }
 html body .frame .container .faders .fader .fader-container i.fas.fa-times {
   position: absolute;
-  top: 10px;
+  top: 15px;
   right: 10px;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.2s;
 }
 html body .frame .container .faders .fader .fader-container input[type='range'] {
   -webkit-appearance: none;
@@ -173,23 +190,48 @@ html body .frame .container .faders .fader .fader-container input[type='range'] 
   top: 45px;
 }
 html body .frame .container .faders .fader .fader-container input[type='range']::-webkit-slider-runnable-track {
-  background: #9aafff;
+  background: #dfdfdf;
   height: 5px;
   border-radius: 100px;
+  transition: background 0.2s;
+  cursor: pointer;
 }
 html body .frame .container .faders .fader .fader-container input[type='range']::-webkit-slider-thumb {
   -webkit-appearance: none;
   content: '';
   height: 40px;
   width: 40px;
-  background: #6483ff;
+  background: #c4c4c4;
   border-radius: 100%;
   transform: translateY(-17.5px);
   border: 5px solid #f1f1f1;
   cursor: pointer;
+  transition: background 0.2s;
 }
 html body .frame .container .faders .fader .fader-container input[type='range']:focus {
   outline: none;
+}
+html body .frame .container .faders .fader.visible .fader-container {
+  width: 115px;
+}
+html body .frame .container .faders .fader.visible:hover i.fas.fa-times {
+  opacity: 1;
+  pointer-events: all;
+}
+html body .frame .container .faders .fader.visible:hover input[type='range'] {
+  -webkit-appearance: none;
+  height: 5px;
+  width: 0;
+  transform: rotate(-270deg);
+  transform-origin: 0 0;
+  position: absolute;
+  top: 45px;
+}
+html body .frame .container .faders .fader.visible:hover input[type='range']::-webkit-slider-runnable-track {
+  background: #9aafff;
+}
+html body .frame .container .faders .fader.visible:hover input[type='range']::-webkit-slider-thumb {
+  background: #6483ff;
 }
 html body .frame .navigation {
   background: #f1f1f1;
@@ -199,13 +241,18 @@ html body .frame .navigation {
   align-items: center;
   padding: 20px;
   border-radius: 5px 5px 0 0;
-  position: fixed;
+  position: absolute;
   left: 0;
   right: 0;
+  top: 0;
   -webkit-app-region: drag;
 }
 html body .frame .navigation > * > i {
   -webkit-app-region: no-drag;
+}
+html body .frame .navigation .navigation-left span {
+  color: #c4c4c4;
+  transition: color 0.3s;
 }
 html body .frame .navigation .navigation-center {
   position: absolute;
