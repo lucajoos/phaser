@@ -1,4 +1,4 @@
-# Phaser client
+# Phaser Desktop
 
 ## License
 

@@ -1,17 +1,17 @@
 {
-  "name": "phaser",
-  "version": "1.0.0",
-  "description": "Phaser",
+  "name": "phaser-desktop",
+  "version": "1.0.1",
+  "description": "Phaser Desktop",
   "main": "main.js",
-  "repository": "https://github.com/lucajoos/phaser-client",
+  "repository": "https://github.com/lucajoos/phaser-desktop",
   "scripts": {
     "test": "electron .",
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make"
   },
-  "keywords": [],
-  "author": "Luca Joos",
+  "keywords": ["phaser", "desktop"],
+  "author": "Luca Joos <1a85ra7z@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.54",
@@ -19,11 +19,10 @@
     "@electron-forge/maker-rpm": "^6.0.0-beta.54",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
     "@electron-forge/maker-zip": "^6.0.0-beta.54",
-    "electron-rebuild": "^2.3.4",
-    "electron": "^11.2.2"
+    "electron": "^11.2.2",
+    "electron-rebuild": "^2.3.4"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.2",
     "electron-squirrel-startup": "^1.0.0",
     "onceupon.js": "^1.5.5",
     "serialport": "^9.0.6",
@@ -33,12 +32,30 @@
   },
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "packageManager": "yarn",
+        "icon": "src/img/app-icon.ico",
+        "appCopyright": "Company Name Here",
+        "ignore": [
+          ".+.test.js",
+          ".*.env",
+          ".eslintrc",
+          ".gitignore",
+          "README.md",
+          "yarn.lock",
+          ".jshintrc",
+          ".babelrc",
+          ".stylus",
+          ".pug"
+        ]
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "client"
+            "name": "Phaser Desktop",
+            "setupIcon": "./assets/icon.ico",
+            "loadingGif": "./assets/slash.gif"
           }
         },
         {
