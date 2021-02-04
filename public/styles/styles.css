@@ -250,9 +250,8 @@ html body .frame .navigation {
 html body .frame .navigation > * > i {
   -webkit-app-region: no-drag;
 }
-html body .frame .navigation .navigation-left span {
-  color: #c4c4c4;
-  transition: color 0.3s;
+html body .frame .navigation .navigation-left i {
+  transform: rotateY(180deg);
 }
 html body .frame .navigation .navigation-center {
   position: absolute;
@@ -265,6 +264,19 @@ html body .frame .navigation .navigation-center {
   display: grid;
   align-items: center;
   pointer-events: none;
+  grid-template-columns: fit-content(100%) fit-content(100%);
+  justify-content: center;
+}
+html body .frame .navigation .navigation-center .status {
+  width: 7.5px;
+  height: 7.5px;
+  border-radius: 100%;
+  background: #c4c4c4;
+  margin: 0 7.5px;
+  transition: background 0.3s;
+}
+html body .frame .navigation .navigation-center .status.active {
+  background: #6483ff;
 }
 html body .frame .navigation .navigation-center span {
   color: #6483ff;

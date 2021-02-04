@@ -29,7 +29,7 @@ let fader = options => {
 
   fcr.addEventListener('input', e => {
     if(connected) {
-      ipcRenderer.send('client-change', ['002', options.channel.toString().padStart(3, '0'), options.id.toString().padStart(3, '0'), e.target.value.toString().padStart(3, '0')]);
+      ipcRenderer.send('client-change', ['002', options.channel.toString().padStart(3, '0'), options.id.toString().padStart(3, '0'), (127 - parseInt(e.target.value)).toString().padStart(3, '0')]);
     }
   });
 
@@ -101,7 +101,7 @@ let init = () => {
   i.classList.add('fas');
   i.classList.add('fa-times');
   let h = document.createElement('h1');
-  h.innerText = 'Connect to server';
+  h.innerText = 'Connect to device';
   let y = document.createElement('input');
   y.setAttribute('type', 'text');
   y.setAttribute('placeholder', 'IP');
@@ -111,7 +111,7 @@ let init = () => {
   a.innerText = 'Connect';
 
   if(options?.ip?.length > 0) {
-    y.value = options.ip;
+    y.value = options.ip.toString().replaceAll('ws://', '').replaceAll(':3787', '');
   }
 
   [...container?.children].forEach(child => {
@@ -128,7 +128,7 @@ let init = () => {
     if(modalIsOpened && input?.value?.length > 0) {
       modal(false);
 
-      options.ip = input.value;
+      options.ip = input.value.toString();
       ipcRenderer.send('client-init', input.value);
     }
   });
@@ -137,6 +137,8 @@ let init = () => {
   container.appendChild(h);
   container.appendChild(y);
   container.appendChild(a);
+
+  y.focus();
 
   modal(true);
 }
@@ -153,41 +155,32 @@ window.addEventListener('load', () => {
   ipcRenderer.send('client-fetch');
 
   ipcRenderer.on('main-fetch-response', (event, data) => {
-    if(data?.ip.length === 0) {
-      init();
-    }
-
     data?.faders.forEach(target => {
       fader(target);
     });
 
     options = data;
+    init();
   });
 
   ipcRenderer.on('main-connect', () => {
     connected = true;
 
-    document.querySelector('.navigation-left > span').innerText = 'connected';
+    let status = document.querySelector('.navigation-center > .status');
 
-    if(document.querySelector('.navigation-left > i').classList.contains('fa-link')) {
-      document.querySelector('.navigation-left > i').classList.remove('fa-link');
-      document.querySelector('.navigation-left > i').classList.add('fa-pen');
+    if(!status.classList.contains('active')) {
+      status.classList.add('active')
     }
-
-    console.log('CONNECTED')
   });
 
   ipcRenderer.on('main-disconnect', () => {
     connected = false;
 
-    document.querySelector('.navigation-left > span').innerText = 'disconnected';
+    let status = document.querySelector('.navigation-center > .status');
 
-    if(document.querySelector('.navigation-left > i').classList.contains('fa-pen')) {
-      document.querySelector('.navigation-left > i').classList.remove('fa-pen');
-      document.querySelector('.navigation-left > i').classList.add('fa-link');
+    if(status.classList.contains('active')) {
+      status.classList.remove('active')
     }
-
-    console.log('DISCONNECTED')
   });
 
   document.querySelector('.curtain').addEventListener('click', () => {
@@ -254,6 +247,8 @@ window.addEventListener('load', () => {
     container.appendChild(yc);
     container.appendChild(yi);
     container.appendChild(a);
+
+    yn.focus();
 
     modal(true);
   });

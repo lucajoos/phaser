@@ -8,7 +8,7 @@ app.whenReady().then(() => {
     width: 1200,
     height: 830,
 
-    minWidth: 390,
+    minWidth: 820,
     minHeight: 600,
 
     frame: false,

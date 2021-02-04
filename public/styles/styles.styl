@@ -262,9 +262,8 @@ html
           -webkit-app-region no-drag
 
         .navigation-left
-          span
-            color $color-silver
-            transition color .3s
+          i
+            transform rotateY(180deg)
 
         .navigation-center
           position absolute
@@ -277,6 +276,19 @@ html
           display grid
           align-items center
           pointer-events none
+          grid-template-columns fit-content(100%) fit-content(100%)
+          justify-content center
+
+          .status
+            width 7.5px
+            height 7.5px
+            border-radius 100%
+            background $color-silver
+            margin 0 7.5px
+            transition background .3s
+
+            &.active
+              background $color-cornflower-blue
 
           span
             color $color-cornflower-blue

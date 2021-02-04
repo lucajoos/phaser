@@ -22,12 +22,24 @@ module.exports = window => {
   }
 
   events.on('init', () => {
+    if(socket) {
+      socket?.close();
+    }
+
     socket = io(options.ip);
 
     socket.on('connect', () => {
       events.fire('ready');
-      console.log('CONNECTED')
-      window?.webContents.send('main-connect');
+
+      events.once('load', () => {
+        window?.webContents.send('main-connect');
+      });
+    });
+
+    socket.on('disconnect', () => {
+      events.once('load', () => {
+        window?.webContents.send('main-disconnect');
+      });
     });
   });
 
@@ -94,12 +106,13 @@ module.exports = window => {
 
       if(data?.length > 0) {
         options = JSON.parse(data);
-        events.fire('init');
       }
     }
   } catch(e) {
     console.error(e);
   }
 
-  window.loadFile('public/index.html');
+  window.loadFile('public/index.html').then(() => {
+    events.fire('load');
+  });
 }
