@@ -1,0 +1,26 @@
+html
+    head
+        title Phaser
+
+        link(rel='stylesheet' href='./styles/styles.css')
+        link(rel='stylesheet' href='../node_modules/@fortawesome/fontawesome-free/css/all.min.css')
+
+        script.
+          require('./render.js')
+    body
+        .frame.client-main
+            .modal
+                .modal-container
+            .curtain
+            .navigation
+                .navigation-left
+                    i.fas.fa-long-arrow-alt-left
+                .navigation-center
+                    span PHASER
+                .navigation-right
+                    i.fas.fa-window-minimize
+                    i.fas.fa-window-maximize
+                    i.fas.fa-times
+            .container
+                .faders
+                i.fas.fa-plus

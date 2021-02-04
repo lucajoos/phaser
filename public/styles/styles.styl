@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap')
+
+$color-silver = #C4C4C4
+$color-gainsboro = #DFDFDF
+$color-cultured = #f1f1f1
+$color-white = #FFFFFF
+$color-cornflower-blue = #6483FF
+$color-maximum-blue-purple = #9AAFFF
+$color-black = #000000
+
+$value-border-radius = 5px
+
+html, body
+  padding 0
+  margin 0
+
+html
+  body
+    font-family 'Lato', sans-serif
+    font-size 1.2em
+
+    i
+      cursor pointer
+      transition color .2s
+      margin 0 10px
+      font-size 1.1em
+      color $color-silver
+
+      &:hover
+        color $color-cornflower-blue
+
+    h1
+      color $color-cornflower-blue
+      font-size 1.5em
+      padding 0
+      margin 0
+
+    input[type='text'], input[type='number']
+      outline none
+      border none
+      padding 15px
+      background $color-cultured
+      width 40vw
+      border-radius $value-border-radius
+      color $color-cornflower-blue
+      font-size .95em
+      margin 12.5px 0
+
+      &::placeholder
+        color $color-silver
+
+    .button
+      text-decoration none
+      background $color-cornflower-blue
+      color $color-white
+      text-transform uppercase
+      padding 12.5px
+      cursor pointer
+      transition background .3s
+      margin 5px
+      border-radius $value-border-radius
+      font-size .8em
+      font-weight 600
+      text-align center
+
+      &:hover
+        background $color-maximum-blue-purple
+
+    .frame
+      width 100%
+      height 100%
+      display grid
+      border-radius $value-border-radius
+      background $color-white
+      color $color-gainsboro
+      position absolute
+
+      .modal
+        position fixed
+        top 0
+        left 0
+        right 0
+        bottom 0
+        z-index 3
+        display grid
+        align-items center
+        justify-content center
+        overflow hidden
+        transform scale(0)
+        transition transform .5s
+        pointer-events none
+
+        &.visible
+          transform scale(1)
+
+        .modal-container
+          border-radius $value-border-radius
+          background $color-white
+          padding 55px 30px 50px 30px
+          display grid
+          grid-template-rows fit-content(100%) fit-content(100%) fit-content(100%)
+          text-align center
+          justify-content right
+          position relative
+          pointer-events all
+
+          i.fas.fa-times
+            position absolute
+            top 20px
+            right 20px
+
+          h1
+            margin 0 0 35px 0
+
+          a.button
+            margin 32.5px 30% 0 30%
+
+      .curtain
+        position fixed
+        top 0
+        bottom 0
+        right 0
+        left 0
+        z-index 2
+        opacity 0
+        background $color-black
+        transition opacity .5s
+        pointer-events none
+
+        &.visible
+          opacity .3
+          pointer-events all
+
+      .container
+        padding 60px 60px 30px 60px
+        display flex
+        align-items center
+        justify-content center
+        margin calc(40px + 1em) 0 0 0
+
+        .faders
+          display flex
+          height 100%
+
+          .fader
+            height 100%
+            display grid
+            grid-template-rows auto fit-content(100%)
+            margin 0 30px
+            width 115px
+            transform scale(0)
+            transition transform .5s
+
+            &.visible
+              transform scale(1)
+
+            .fader-meta
+              color $color-cornflower-blue
+              text-align center
+              margin 30px
+
+            .fader-container
+              background $color-cultured
+              border-radius $value-border-radius
+              position relative
+              padding 30px 0
+              text-align center
+              width 115px
+
+              i.fas.fa-times
+                position absolute
+                top 10px
+                right 10px
+
+              input[type='range']
+                -webkit-appearance none
+                height 5px
+                width 0
+                transform rotate(-270deg)
+                transform-origin 0 0
+                position absolute
+                top 45px
+
+                &::-webkit-slider-runnable-track
+                  background $color-maximum-blue-purple
+                  height 5px
+                  border-radius 100px
+
+                &::-webkit-slider-thumb
+                  -webkit-appearance none
+                  content ''
+                  height 40px
+                  width 40px
+                  background $color-cornflower-blue
+                  border-radius 100%
+                  transform translateY(-17.5px)
+                  border 5px solid $color-cultured
+                  cursor pointer
+
+                &:focus
+                  outline none
+
+      .navigation
+        background $color-cultured
+        display grid
+        grid-template-columns auto auto
+        justify-content space-between
+        align-items center
+        padding 20px
+        border-radius $value-border-radius $value-border-radius 0 0
+        position fixed
+        left 0
+        right 0
+        -webkit-app-region drag
+
+        & > * > i
+          -webkit-app-region no-drag
+
+        .navigation-center
+          position absolute
+          left 0
+          right 0
+          top 0
+          bottom 0
+          margin auto
+          text-align center
+          display grid
+          align-items center
+          pointer-events none
+
+          span
+            color $color-cornflower-blue
+            font-weight 600
