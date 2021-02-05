@@ -1,7 +1,7 @@
 {
-  "name": "phaser-desktop",
-  "version": "1.0.1",
-  "description": "Phaser Desktop",
+  "name": "phaser",
+  "version": "1.0.2",
+  "description": "Phaser",
   "main": "main.js",
   "repository": "https://github.com/lucajoos/phaser-desktop",
   "scripts": {
@@ -34,8 +34,8 @@
     "forge": {
       "packagerConfig": {
         "packageManager": "yarn",
-        "icon": "src/img/app-icon.ico",
-        "appCopyright": "Company Name Here",
+        "icon": "./assets/icon.ico",
+        "appCopyright": "Luca Joos",
         "ignore": [
           ".+.test.js",
           ".*.env",
@@ -53,9 +53,9 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "Phaser Desktop",
+            "name": "Phaser",
             "setupIcon": "./assets/icon.ico",
-            "loadingGif": "./assets/slash.gif"
+            "loadingGif": "./assets/splash.gif"
           }
         },
         {

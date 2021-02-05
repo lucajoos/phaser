@@ -220,6 +220,12 @@ html
                 &:focus
                   outline none
 
+                  &::-webkit-slider-runnable-track
+                    background $color-maximum-blue-purple
+
+                  &::-webkit-slider-thumb
+                    background $color-cornflower-blue
+
             &.visible
               .fader-container
                 width 115px
@@ -230,14 +236,6 @@ html
                   pointer-events all
 
                 input[type='range']
-                  -webkit-appearance none
-                  height 5px
-                  width 0
-                  transform rotate(-270deg)
-                  transform-origin 0 0
-                  position absolute
-                  top 45px
-
                   &::-webkit-slider-runnable-track
                     background $color-maximum-blue-purple
 
